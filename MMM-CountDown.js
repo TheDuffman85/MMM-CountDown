@@ -1,16 +1,15 @@
 Module.register("MMM-CountDown",{
 	// Default module config.
 	defaults: {
-		event: "New Millenium:",
 		date: "3000-01-01",
 		showHours: true,
 		showMinutes: true,
 		showSeconds: true,
 		customInterval: 1000,
-		daysLabel: 'd',
-		hoursLabel: 'h',
-		minutesLabel: 'm',
-		secondsLabel: 's',
+		daysLabel: ' Tage ',
+		hoursLabel: ' Std. ',
+		minutesLabel: ' Min. ',
+		secondsLabel: ' Sek.'
 	},
 
 	// set update interval
@@ -26,11 +25,8 @@ Module.register("MMM-CountDown",{
 		var wrapper = document.createElement("div");
 
 		var timeWrapper = document.createElement("div");
-		var textWrapper = document.createElement("div");
 
-		textWrapper.className = "align-left week dimmed medium";
-		timeWrapper.className = "time bright xlarge light";
-		textWrapper.innerHTML=this.config.event;
+		timeWrapper.className = "time bright small light";
 
 		var today = new Date(Date.now());
 		var target = new Date(this.config.date);
@@ -47,16 +43,30 @@ Module.register("MMM-CountDown",{
 		var mins = '';
 		var secs = '';
 		var days = diffDays + this.config.daysLabel;
-
-		if(this.config.showHours == true) hrs = diffHours + this.config.hoursLabel;
-		if(this.config.showMinutes == true) mins = diffMinutes + this.config.minutesLabel;
-		if(this.config.showSeconds == true) secs = diffSeconds + this.config.secondsLabel;
+		
+		if(this.config.showHours == true) hrs = this.zeroFill(diffHours, 2) + this.config.hoursLabel;
+		if(this.config.showMinutes == true) mins = this.zeroFill(diffMinutes, 2) + this.config.minutesLabel;
+		if(this.config.showSeconds == true) secs = this.zeroFill(diffSeconds, 2) + this.config.secondsLabel;
 
 		timeWrapper.innerHTML = days + hrs + mins + secs;
-
-		wrapper.appendChild(textWrapper);
+		
 		wrapper.appendChild(timeWrapper);
 
 		return wrapper;
+	},
+	
+	zeroFill: function (number, width) {
+		var fillZeroes = "00000000000000000000"; 
+		
+		// make sure it's a string
+		var input = number + "";  
+		var prefix = "";
+		if (input.charAt(0) === '-') {
+			prefix = "-";
+			input = input.slice(1);
+			--width;
+		}
+		var fillAmt = Math.max(width - input.length, 0);
+		return prefix + fillZeroes.slice(0, fillAmt) + input;
 	}
 });

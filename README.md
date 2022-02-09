@@ -26,8 +26,7 @@ var config = {
 
 | Option           | Description                                                                                                           |
 | ---------------- | --------------------------------------------------------------------------------------------------------------------- |
-| `position`       | *Required* Where do you want to place the counter (use standard magicmirror positions)                                |
-| `event`          | *Required* Name of event to count down to (displayed above counter)                                                   |
+| `position`       | *Required* Where do you want to place the counter (use standard magicmirror counter)                                                   |
 | `date`           | *Required* Date to count down to (YYYY-MM-DD HH:MM:SS)                                                                |
 | `showHours`      | Decide whether or not to display the hours. Default is true                                                           |
 | `showMinutes`    | Decide whether or not to display the minutes. Default is true                                                         |
